@@ -32,6 +32,6 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         userRepository.save(user);
-        log.info("User with email:{} was registered", userRequest.email());
+        log.info("User with email: {} was registered", userRequest.email());
     }
 }
