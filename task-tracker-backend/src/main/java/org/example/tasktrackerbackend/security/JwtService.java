@@ -6,4 +6,5 @@ public interface JwtService {
 
     String generateToken(UserDetails userDetails);
 
+    boolean verifyToken(String token);
 }
