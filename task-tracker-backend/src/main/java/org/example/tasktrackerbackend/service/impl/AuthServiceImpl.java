@@ -6,7 +6,7 @@ import org.example.tasktrackerbackend.dto.response.JwtAuthResponse;
 import org.example.tasktrackerbackend.entity.User;
 import org.example.tasktrackerbackend.enums.Role;
 import org.example.tasktrackerbackend.security.CustomUserDetails;
-import org.example.tasktrackerbackend.security.JwtService;
+import org.example.tasktrackerbackend.security.jwt.JwtService;
 import org.example.tasktrackerbackend.service.AuthService;
 import org.example.tasktrackerbackend.service.UserService;
 import org.springframework.security.authentication.BadCredentialsException;
