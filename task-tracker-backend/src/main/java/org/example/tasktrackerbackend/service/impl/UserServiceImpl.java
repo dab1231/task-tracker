@@ -8,6 +8,8 @@ import org.example.tasktrackerbackend.repository.UserRepository;
 import org.example.tasktrackerbackend.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,4 +29,11 @@ public class UserServiceImpl implements UserService {
         log.info("User with email: {} was registered", user.getEmail());
         return savedUser;
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
 }
