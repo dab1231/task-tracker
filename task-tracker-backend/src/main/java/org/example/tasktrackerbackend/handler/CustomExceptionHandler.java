@@ -53,8 +53,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(Exception ex) {
 
-        var message = ex.getMessage();
-        log.warn(message);
+        var message = "Unexpected exception";
+        log.error(message, ex);
 
         return new ResponseEntity<>(
                 new ErrorResponse(message),
