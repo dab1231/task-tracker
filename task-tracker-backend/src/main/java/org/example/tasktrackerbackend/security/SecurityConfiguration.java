@@ -27,6 +27,7 @@ public class SecurityConfiguration {
                         (requests) ->
                                 requests
                                         .requestMatchers("/user").permitAll()
+                                        .requestMatchers("/auth/login").permitAll()
                                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
