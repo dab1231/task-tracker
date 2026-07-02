@@ -7,7 +7,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: task_tracker_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pass
     ports:
@@ -40,4 +40,4 @@ services:
       - "8082:8080"
 
 volumes:
-    data:
+  data:

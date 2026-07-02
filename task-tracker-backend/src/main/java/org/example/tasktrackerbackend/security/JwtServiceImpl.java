@@ -1,0 +1,63 @@
+package org.example.tasktrackerbackend.security;
+
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
+@Service
+public class JwtServiceImpl implements JwtService {
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Override
+    public String generateToken(UserDetails userDetails) {
+        return Jwts.builder()
+                .subject(userDetails.getUsername())
+                .claim("Role", userDetails.getAuthorities())
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
+                .signWith(getSecretKey(secret))
+                .compact();
+    }
+
+    @Override
+    public String extractEmail(String token) {
+        var parser = getJwtParser();
+        var claimsJws = parser.parseSignedClaims(token);
+
+        return claimsJws
+                .getPayload()
+                .getSubject();
+    }
+
+    private JwtParser getJwtParser() {
+        return Jwts.parser()
+                .verifyWith(getSecretKey(secret))
+                .build();
+    }
+
+    @Override
+    public boolean verifyToken(String token) {
+        var parser = getJwtParser();
+        try {
+            parser.parseSignedClaims(token);
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private SecretKey getSecretKey(String key) {
+        return Keys.hmacShaKeyFor(key.getBytes());
+    }
+}
