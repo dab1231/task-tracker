@@ -1,4 +1,4 @@
-package org.example.tasktrackerbackend.security;
+package org.example.tasktrackerbackend.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
