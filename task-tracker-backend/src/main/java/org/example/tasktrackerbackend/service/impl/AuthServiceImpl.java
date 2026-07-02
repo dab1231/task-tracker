@@ -10,7 +10,6 @@ import org.example.tasktrackerbackend.security.JwtService;
 import org.example.tasktrackerbackend.service.AuthService;
 import org.example.tasktrackerbackend.service.UserService;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,23 +41,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtAuthResponse singIn(UserRequest userRequest) {
-        var maybeUser = userService.findByEmail(userRequest.email());
-        if (maybeUser.isPresent()) {
+        var user = userService.findUserByEmail(userRequest.email());
 
-            var user = maybeUser.get();
-            if (passwordEncoder.matches(userRequest.password(), user.getPassword())) {
-                var token = jwtService.generateToken(new CustomUserDetails(
-                        user.getId(),
-                        user.getEmail(),
-                        user.getPassword(),
-                        user.getRole()
-                ));
-                return new JwtAuthResponse(token);
-            } else {
-                throw new BadCredentialsException("Password in not correct");
-            }
+        if (passwordEncoder.matches(userRequest.password(), user.getPassword())) {
+            var token = jwtService.generateToken(new CustomUserDetails(
+                    user.getId(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.getRole()
+            ));
+            return new JwtAuthResponse(token);
         } else {
-            throw new UsernameNotFoundException("User with email: " + userRequest.email() + " not found");
+            throw new BadCredentialsException("Password in not correct");
         }
     }
 }
