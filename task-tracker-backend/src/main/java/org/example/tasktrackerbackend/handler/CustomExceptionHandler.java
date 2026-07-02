@@ -5,6 +5,8 @@ import org.example.tasktrackerbackend.dto.response.ErrorResponse;
 import org.example.tasktrackerbackend.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -18,5 +20,16 @@ public class CustomExceptionHandler {
         log.warn(message);
 
         return new ResponseEntity<>(new ErrorResponse(message), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
+    public ResponseEntity<ErrorResponse> handleAuthExceptions(Exception ex) {
+        var message = ex.getMessage();
+        log.warn(message);
+
+        return new ResponseEntity<>(
+                new ErrorResponse("Email or password is not correct"),
+                HttpStatus.UNAUTHORIZED
+        );
     }
 }
