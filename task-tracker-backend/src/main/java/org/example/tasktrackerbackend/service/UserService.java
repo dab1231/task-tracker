@@ -5,5 +5,5 @@ import org.example.tasktrackerbackend.entity.User;
 
 public interface UserService {
 
-    void saveUser(User user);
+    User saveUser(User user);
 }

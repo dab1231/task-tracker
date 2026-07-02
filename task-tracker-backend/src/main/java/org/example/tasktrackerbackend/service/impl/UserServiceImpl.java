@@ -17,17 +17,17 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
 
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(maybeUser -> {
                     throw new UserAlreadyExistsException("User with email:" + maybeUser.getEmail() + " already exists");
                 });
 
-        userRepository.save(user);
+        var savedUser = userRepository.save(user);
         log.info("User with email: {} was registered", user.getEmail());
+        return savedUser;
     }
 }
