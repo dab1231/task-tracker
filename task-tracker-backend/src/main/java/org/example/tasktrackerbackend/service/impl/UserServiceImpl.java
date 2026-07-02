@@ -8,6 +8,7 @@ import org.example.tasktrackerbackend.enums.Role;
 import org.example.tasktrackerbackend.exception.UserAlreadyExistsException;
 import org.example.tasktrackerbackend.repository.UserRepository;
 import org.example.tasktrackerbackend.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void saveUser(UserRequest userRequest) {
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
         var user = User.builder()
                 .email(userRequest.email())
-                .password(userRequest.password())
+                .password(passwordEncoder.encode(userRequest.password()))
                 .role(Role.USER)
                 .build();
 
