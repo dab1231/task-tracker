@@ -43,5 +43,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findUserByEmail(String email) {
+        var maybeUser = userRepository.findByEmail(email);
+        if (maybeUser.isPresent()) {
+            return maybeUser.get();
+        } else {
+            throw new UsernameNotFoundException("User with email: " + email + " not found");
+        }
+    }
+
 
 }

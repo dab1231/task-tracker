@@ -10,4 +10,6 @@ public interface UserService {
     User saveUser(User user);
 
     UserResponse findByEmail(String email);
+
+    User findUserByEmail(String email);
 }
