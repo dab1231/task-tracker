@@ -1,7 +1,6 @@
 package org.example.tasktrackerbackend.security;
 
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,10 +29,25 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public boolean verifyToken(String token) {
+    public String extractEmail(String token) {
+        var parser = getJwtParser();
+        var claimsJws = parser.parseSignedClaims(token);
+
+        return claimsJws
+                .getPayload()
+                .getSubject();
+    }
+
+    private JwtParser getJwtParser() {
         var parser = Jwts.parser()
                 .verifyWith(getSecretKey(secret))
                 .build();
+        return parser;
+    }
+
+    @Override
+    public boolean verifyToken(String token) {
+        var parser = getJwtParser();
         try {
             var claimsJws = parser.parseSignedClaims(token);
         } catch (JwtException | IllegalArgumentException e) {
