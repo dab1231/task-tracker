@@ -1,4 +1,4 @@
-package org.example.tasktrackerbackend.security;
+package org.example.tasktrackerbackend.security.jwt;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;

@@ -1,4 +1,4 @@
-package org.example.tasktrackerbackend.security;
+package org.example.tasktrackerbackend.security.jwt;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
