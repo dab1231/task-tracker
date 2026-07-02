@@ -41,17 +41,16 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private JwtParser getJwtParser() {
-        var parser = Jwts.parser()
+        return Jwts.parser()
                 .verifyWith(getSecretKey(secret))
                 .build();
-        return parser;
     }
 
     @Override
     public boolean verifyToken(String token) {
         var parser = getJwtParser();
         try {
-            var claimsJws = parser.parseSignedClaims(token);
+            parser.parseSignedClaims(token);
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
