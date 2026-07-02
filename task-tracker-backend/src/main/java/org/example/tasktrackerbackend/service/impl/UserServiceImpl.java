@@ -20,20 +20,14 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void saveUser(UserRequest userRequest) {
+    public void saveUser(User user) {
 
-        userRepository.findByEmail(userRequest.email())
-                .ifPresent(user -> {
-                    throw new UserAlreadyExistsException("User with email:" + userRequest.email() + " already exists");
+        userRepository.findByEmail(user.getEmail())
+                .ifPresent(maybeUser -> {
+                    throw new UserAlreadyExistsException("User with email:" + maybeUser.getEmail() + " already exists");
                 });
 
-        var user = User.builder()
-                .email(userRequest.email())
-                .password(passwordEncoder.encode(userRequest.password()))
-                .role(Role.USER)
-                .build();
-
         userRepository.save(user);
-        log.info("User with email: {} was registered", userRequest.email());
+        log.info("User with email: {} was registered", user.getEmail());
     }
 }
