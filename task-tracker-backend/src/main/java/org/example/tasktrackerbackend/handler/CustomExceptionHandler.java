@@ -46,7 +46,7 @@ public class CustomExceptionHandler {
         var fieldErrors = ex.getBindingResult().getFieldErrors();
         var message = fieldErrors.stream()
                 .map(FieldError::getDefaultMessage)
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(", "));
         return new ResponseEntity<>(new ErrorResponse(message), HttpStatus.BAD_REQUEST);
     }
 
