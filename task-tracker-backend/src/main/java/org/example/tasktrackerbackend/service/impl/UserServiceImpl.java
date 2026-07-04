@@ -10,6 +10,8 @@ import org.example.tasktrackerbackend.service.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -50,6 +52,17 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("User with email: " + email + " not found");
         }
     }
+
+    @Override
+    public User findById(Long id) {
+        var maybeUser = userRepository.findById(id);
+        if (maybeUser.isPresent()) {
+            return maybeUser.get();
+        } else {
+            throw new UsernameNotFoundException("User with email: " + id + " not found");
+        }
+    }
+
 
 
 }
