@@ -2,6 +2,7 @@ package org.example.tasktrackerbackend.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.tasktrackerbackend.dto.response.ErrorResponse;
+import org.example.tasktrackerbackend.exception.TaskNotFoundException;
 import org.example.tasktrackerbackend.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,18 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(
                 new ErrorResponse(message),
                 HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTaskNotFoundException(TaskNotFoundException ex) {
+
+        var message = ex.getMessage();
+        log.warn(message);
+
+        return new ResponseEntity<>(
+                new ErrorResponse(message),
+                HttpStatus.NOT_FOUND
         );
     }
 }
