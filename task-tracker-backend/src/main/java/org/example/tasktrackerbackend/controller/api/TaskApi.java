@@ -19,7 +19,7 @@ public interface TaskApi {
     ResponseEntity<TaskResponse> createTask(@Validated @RequestBody TaskCreateRequest taskRequest, Principal principal);
 
     @PatchMapping("/task/{taskId}")
-    ResponseEntity<TaskResponse> updateTask(@Validated @RequestBody TaskUpdateRequest taskRequest, @PathVariable Long taskId,Principal principal);
+    ResponseEntity<TaskResponse> updateTask(@Validated @RequestBody TaskUpdateRequest taskRequest, @PathVariable Long taskId, Principal principal);
 
     @DeleteMapping("/task/{taskId}")
     ResponseEntity<Object> deleteTask(@PathVariable Long taskId, Principal principal);
