@@ -51,5 +51,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findById(Long id) {
+        var maybeUser = userRepository.findById(id);
+        if (maybeUser.isPresent()) {
+            return maybeUser.get();
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
+    }
+
+    @Override
+    public Long getIdByEmail(String email) {
+        var maybeUser = userRepository.findByEmail(email);
+        if (maybeUser.isPresent()) {
+            return maybeUser.get().getId();
+        } else {
+            throw new UsernameNotFoundException("User with email: " + email + " not found");
+        }
+    }
+
 
 }
