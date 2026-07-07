@@ -12,6 +12,7 @@ import org.example.tasktrackerbackend.service.TaskService;
 import org.example.tasktrackerbackend.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,6 +66,12 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse updateTask(TaskUpdateRequest task, Long taskId, Long userId) {
 
         var taskFromDb = getTaskOrThrowEx(taskId, userId);
+        if (!taskFromDb.getStatus().equals(TaskStatus.DONE) && task.status().equals(TaskStatus.DONE)) {
+            taskFromDb.setCompletedAt(LocalDateTime.now());
+        } else if (taskFromDb.getStatus().equals(TaskStatus.DONE) && !task.status().equals(TaskStatus.DONE)) {
+            taskFromDb.setCompletedAt(null);
+        }
+
         taskFromDb.setTitle(task.title());
         taskFromDb.setDescription(task.description());
         taskFromDb.setStatus(task.status());
