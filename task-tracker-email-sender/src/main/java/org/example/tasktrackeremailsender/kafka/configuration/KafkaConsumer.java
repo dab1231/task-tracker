@@ -1,8 +1,8 @@
-package org.example.tasktrackeremailsender.configuration;
+package org.example.tasktrackeremailsender.kafka.configuration;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.example.tasktrackeremailsender.dto.EmailMessage;
+import org.example.tasktrackeremailsender.kafka.dto.EmailMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
