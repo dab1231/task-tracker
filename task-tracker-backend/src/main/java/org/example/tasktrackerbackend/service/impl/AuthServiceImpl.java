@@ -5,6 +5,7 @@ import org.example.tasktrackerbackend.dto.request.UserRequest;
 import org.example.tasktrackerbackend.dto.response.JwtAuthResponse;
 import org.example.tasktrackerbackend.entity.User;
 import org.example.tasktrackerbackend.enums.Role;
+import org.example.tasktrackerbackend.kafka.service.EmailService;
 import org.example.tasktrackerbackend.security.CustomUserDetails;
 import org.example.tasktrackerbackend.security.jwt.JwtService;
 import org.example.tasktrackerbackend.service.AuthService;
@@ -20,6 +21,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Override
     public JwtAuthResponse singUp(UserRequest userRequest) {
@@ -36,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
                 savedUser.getPassword(),
                 savedUser.getRole()
         ));
+        emailService.sendWelcomeEmail(savedUser.getEmail());
         return new JwtAuthResponse(token);
     }
 
