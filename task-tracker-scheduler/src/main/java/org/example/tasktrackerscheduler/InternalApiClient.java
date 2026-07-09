@@ -11,5 +11,5 @@ import java.util.List;
 public interface InternalApiClient {
 
     @GetExchange("/internal/reports")
-    public List<UserDailyReportResponse> getAllUserReports(@RequestHeader("X-Internal-Api-Key") String header);
+    List<UserDailyReportResponse> getAllUserReports(@RequestHeader("X-Internal-Api-Key") String header);
 }
