@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
 
         for (UserDailyReportResponse report : dailyReports) {
 
-            if(report.completedTasks().isEmpty() && report.pendingTasks().isEmpty()) {
+            if (report.completedTasks().isEmpty() && report.pendingTasks().isEmpty()) {
                 continue;
             }
 
@@ -57,7 +57,7 @@ public class EmailServiceImpl implements EmailService {
                 emailMessage = new EmailMessage(
                         report.email(),
                         "Количество невыполненных задач: " + report.pendingCount() +
-                        "\n Количество выполненных задач: " + report.completedCount(),
+                                "\n Количество выполненных задач: " + report.completedCount(),
                         finalDescription
                 );
             }
