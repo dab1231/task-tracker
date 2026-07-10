@@ -39,6 +39,8 @@ public class ReportServiceImpl implements ReportService {
         return Stream.concat(completedTasksGrouped.keySet().stream(), uncompletedTasksGrouped.keySet().stream()).
                 distinct().map(email -> new UserDailyReportResponse
                         (email, uncompletedTasksGrouped.getOrDefault(email, List.of()),
-                                completedTasksGrouped.getOrDefault(email, List.of()))).toList();
+                                completedTasksGrouped.getOrDefault(email, List.of()),
+                                uncompletedMap.getOrDefault(email, List.of()).size(),
+                                completedMap.getOrDefault(email, List.of()).size())).toList();
     }
 }
