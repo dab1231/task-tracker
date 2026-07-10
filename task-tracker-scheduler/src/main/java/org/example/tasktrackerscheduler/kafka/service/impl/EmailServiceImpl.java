@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
                         "У вас осталось " + report.pendingCount() + " несделанных задач",
                         description
                 );
-            } else if (report.pendingTasks().isEmpty() && !report.completedTasks().isEmpty()) {
+            } else if (report.pendingTasks().isEmpty()) {
 
                 var description = String.join(" ,", report.completedTasks());
                 emailMessage = new EmailMessage(
