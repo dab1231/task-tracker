@@ -1,6 +1,6 @@
 package org.example.tasktrackerscheduler;
 
-import org.example.tasktrackerscheduler.dto.UserDailyReportResponse;
+import org.example.tasktrackerscheduler.kafka.dto.UserDailyReportResponse;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;

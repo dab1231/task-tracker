@@ -1,4 +1,4 @@
-package org.example.tasktrackerscheduler.dto;
+package org.example.tasktrackerscheduler.kafka.dto;
 
 import java.util.List;
 
