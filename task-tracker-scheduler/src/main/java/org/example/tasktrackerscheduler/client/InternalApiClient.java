@@ -1,4 +1,4 @@
-package org.example.tasktrackerscheduler;
+package org.example.tasktrackerscheduler.client;
 
 import org.example.tasktrackerscheduler.kafka.dto.UserDailyReportResponse;
 import org.springframework.web.bind.annotation.RequestHeader;

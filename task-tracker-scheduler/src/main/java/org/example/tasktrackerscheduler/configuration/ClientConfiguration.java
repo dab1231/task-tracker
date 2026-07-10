@@ -1,6 +1,6 @@
 package org.example.tasktrackerscheduler.configuration;
 
-import org.example.tasktrackerscheduler.InternalApiClient;
+import org.example.tasktrackerscheduler.client.InternalApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
